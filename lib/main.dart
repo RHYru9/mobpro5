@@ -1,3 +1,6 @@
+// File: main.dart
+// Dengan tema warna biru untuk AppBar
+
 import 'package:flutter/material.dart';
 import './ui/poli_page.dart';
 
@@ -11,7 +14,15 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'Klinik APP',
       debugShowCheckedModeBanner: false,
-      home: PoliPage(),
+      theme: ThemeData(
+        primarySwatch: Colors.blue,
+        appBarTheme: const AppBarTheme(
+          backgroundColor: Colors.blue,
+          foregroundColor: Colors.white,
+          elevation: 0,
+        ),
+      ),
+      home: const PoliPage(),
     );
   }
 }

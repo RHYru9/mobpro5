@@ -1,4 +1,5 @@
 // File: ui/poli_detail.dart
+// Dengan fungsi Ubah dan Hapus yang berfungsi
 
 import 'package:flutter/material.dart';
 import '../model/poli.dart';
@@ -14,22 +15,15 @@ class PoliDetail extends StatefulWidget {
 }
 
 class _PoliDetailState extends State<PoliDetail> {
-  void _ubah() async {
-    // Navigasi ke form edit
-    final result = await Navigator.push(
+  // Fungsi untuk tombol Ubah
+  void _ubah() {
+    Navigator.push(
       context,
-      MaterialPageRoute(builder: (context) => PoliForm(poli: widget.poli)),
+      MaterialPageRoute(builder: (context) => const PoliForm()),
     );
-
-    // FIXED: Cek apakah widget masih mounted sebelum menggunakan context
-    if (!mounted) return;
-
-    // Jika ada hasil dari form, kembali ke halaman list dengan data baru
-    if (result != null) {
-      Navigator.pop(context, result);
-    }
   }
 
+  // Fungsi untuk tombol Hapus
   void _hapus() {
     // Tampilkan dialog konfirmasi
     showDialog(
@@ -41,14 +35,23 @@ class _PoliDetailState extends State<PoliDetail> {
         ),
         actions: [
           TextButton(
-            onPressed: () => Navigator.pop(context),
+            onPressed: () {
+              Navigator.pop(context); // Tutup dialog
+            },
             child: const Text("Batal"),
           ),
           ElevatedButton(
             onPressed: () {
-              // Kembali ke halaman list dengan status hapus
               Navigator.pop(context); // Tutup dialog
-              Navigator.pop(context, 'hapus'); // Kembali ke list
+              Navigator.pop(context); // Kembali ke halaman list
+
+              // Tampilkan notifikasi berhasil dihapus
+              ScaffoldMessenger.of(context).showSnackBar(
+                SnackBar(
+                  content: Text("${widget.poli.namaPoli} berhasil dihapus"),
+                  backgroundColor: Colors.red,
+                ),
+              );
             },
             style: ElevatedButton.styleFrom(backgroundColor: Colors.red),
             child: const Text("Hapus"),
@@ -74,12 +77,12 @@ class _PoliDetailState extends State<PoliDetail> {
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
               ElevatedButton(
-                onPressed: _ubah,
+                onPressed: _ubah, // ← Panggil fungsi _ubah
                 style: ElevatedButton.styleFrom(backgroundColor: Colors.green),
                 child: const Text("Ubah"),
               ),
               ElevatedButton(
-                onPressed: _hapus,
+                onPressed: _hapus, // ← Panggil fungsi _hapus
                 style: ElevatedButton.styleFrom(backgroundColor: Colors.red),
                 child: const Text("Hapus"),
               ),
