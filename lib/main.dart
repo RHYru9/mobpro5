@@ -1,8 +1,9 @@
-// File: lib/main.dart
 import 'package:flutter/material.dart';
-import './ui/poli_page.dart';
+import 'ui/beranda.dart';
 
-void main() => runApp(const MyApp());
+void main() {
+  runApp(const MyApp());
+}
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
@@ -10,8 +11,8 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Klinik APP',
       debugShowCheckedModeBanner: false,
+      title: 'Klinik',
       theme: ThemeData(
         primarySwatch: Colors.blue,
         appBarTheme: const AppBarTheme(
@@ -20,7 +21,7 @@ class MyApp extends StatelessWidget {
           elevation: 0,
         ),
       ),
-      home: const PoliPage(),
+      home: Beranda(),
     );
   }
 }

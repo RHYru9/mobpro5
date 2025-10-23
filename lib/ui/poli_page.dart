@@ -1,6 +1,5 @@
-// File: ui/poli_page.dart
-
 import 'package:flutter/material.dart';
+import '../widget/sidebar.dart';
 import '../model/poli.dart';
 import 'poli_item.dart';
 import 'poli_form.dart';
@@ -16,17 +15,16 @@ class _PoliPageState extends State<PoliPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      drawer: Sidebar(),
       appBar: AppBar(
         title: const Text("Data Poli"),
         actions: [
           GestureDetector(
+            child: const Icon(Icons.add),
             onTap: () {
               Navigator.push(
-                context,
-                MaterialPageRoute(builder: (context) => const PoliForm()),
-              );
+                context, MaterialPageRoute(builder: (context) => PoliForm()));
             },
-            child: const Icon(Icons.add),
           ),
           const SizedBox(width: 16),
         ],
