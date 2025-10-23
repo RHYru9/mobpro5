@@ -1,4 +1,5 @@
-//poli_page.dart
+// File: ui/poli_page.dart
+
 import 'package:flutter/material.dart';
 import '../model/poli.dart';
 import 'poli_item.dart';
@@ -27,6 +28,7 @@ class _PoliPageState extends State<PoliPage> {
             },
             child: const Icon(Icons.add),
           ),
+          const SizedBox(width: 16),
         ],
       ),
       body: ListView(

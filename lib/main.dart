@@ -1,6 +1,4 @@
-// File: main.dart
-// Dengan tema warna biru untuk AppBar
-
+// File: lib/main.dart
 import 'package:flutter/material.dart';
 import './ui/poli_page.dart';
 

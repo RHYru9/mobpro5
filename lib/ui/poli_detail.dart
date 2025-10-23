@@ -1,9 +1,9 @@
 // File: ui/poli_detail.dart
-// Dengan fungsi Ubah dan Hapus yang berfungsi
 
 import 'package:flutter/material.dart';
+import 'poli_page.dart';
+import 'poli_update_form.dart';
 import '../model/poli.dart';
-import 'poli_form.dart';
 
 class PoliDetail extends StatefulWidget {
   final Poli poli;
@@ -15,52 +15,6 @@ class PoliDetail extends StatefulWidget {
 }
 
 class _PoliDetailState extends State<PoliDetail> {
-  // Fungsi untuk tombol Ubah
-  void _ubah() {
-    Navigator.push(
-      context,
-      MaterialPageRoute(builder: (context) => const PoliForm()),
-    );
-  }
-
-  // Fungsi untuk tombol Hapus
-  void _hapus() {
-    // Tampilkan dialog konfirmasi
-    showDialog(
-      context: context,
-      builder: (context) => AlertDialog(
-        title: const Text("Konfirmasi"),
-        content: Text(
-          "Apakah Anda yakin ingin menghapus ${widget.poli.namaPoli}?",
-        ),
-        actions: [
-          TextButton(
-            onPressed: () {
-              Navigator.pop(context); // Tutup dialog
-            },
-            child: const Text("Batal"),
-          ),
-          ElevatedButton(
-            onPressed: () {
-              Navigator.pop(context); // Tutup dialog
-              Navigator.pop(context); // Kembali ke halaman list
-
-              // Tampilkan notifikasi berhasil dihapus
-              ScaffoldMessenger.of(context).showSnackBar(
-                SnackBar(
-                  content: Text("${widget.poli.namaPoli} berhasil dihapus"),
-                  backgroundColor: Colors.red,
-                ),
-              );
-            },
-            style: ElevatedButton.styleFrom(backgroundColor: Colors.red),
-            child: const Text("Hapus"),
-          ),
-        ],
-      ),
-    );
-  }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -76,20 +30,62 @@ class _PoliDetailState extends State<PoliDetail> {
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
-              ElevatedButton(
-                onPressed: _ubah, // ← Panggil fungsi _ubah
-                style: ElevatedButton.styleFrom(backgroundColor: Colors.green),
-                child: const Text("Ubah"),
-              ),
-              ElevatedButton(
-                onPressed: _hapus, // ← Panggil fungsi _hapus
-                style: ElevatedButton.styleFrom(backgroundColor: Colors.red),
-                child: const Text("Hapus"),
-              ),
+              _tombolUbah(),
+              _tombolHapus(),
             ],
-          ),
+          )
         ],
       ),
+    );
+  }
+
+  _tombolUbah() {
+    return ElevatedButton(
+      onPressed: () {
+        Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (context) => PoliUpdateForm(poli: widget.poli),
+          ),
+        );
+      },
+      style: ElevatedButton.styleFrom(backgroundColor: Colors.green),
+      child: const Text("Ubah"),
+    );
+  }
+
+  _tombolHapus() {
+    return ElevatedButton(
+      onPressed: () {
+        AlertDialog alertDialog = AlertDialog(
+          content: const Text("Yakin ingin menghapus data ini?"),
+          actions: [
+            // tombol ya
+            ElevatedButton(
+              onPressed: () {
+                Navigator.pop(context);
+                Navigator.pushReplacement(
+                  context,
+                  MaterialPageRoute(builder: (context) => const PoliPage()),
+                );
+              },
+              style: ElevatedButton.styleFrom(backgroundColor: Colors.red),
+              child: const Text("YA"),
+            ),
+            // tombol batal
+            ElevatedButton(
+              onPressed: () {
+                Navigator.pop(context);
+              },
+              style: ElevatedButton.styleFrom(backgroundColor: Colors.green),
+              child: const Text("Tidak"),
+            )
+          ],
+        );
+        showDialog(context: context, builder: (context) => alertDialog);
+      },
+      style: ElevatedButton.styleFrom(backgroundColor: Colors.red),
+      child: const Text("Hapus"),
     );
   }
 }

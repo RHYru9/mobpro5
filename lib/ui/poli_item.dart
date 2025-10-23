@@ -1,4 +1,4 @@
-//poli_item.dart
+// File: ui/poli_item.dart
 
 import 'package:flutter/material.dart';
 import '../model/poli.dart';
@@ -18,7 +18,11 @@ class PoliItem extends StatelessWidget {
           MaterialPageRoute(builder: (context) => PoliDetail(poli: poli)),
         );
       },
-      child: Card(child: ListTile(title: Text(poli.namaPoli))),
+      child: Card(
+        child: ListTile(
+          title: Text(poli.namaPoli),
+        ),
+      ),
     );
   }
 }

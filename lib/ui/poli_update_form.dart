@@ -1,24 +1,34 @@
-// File: ui/poli_form.dart
+// File: ui/poli_update_form.dart
 
 import 'package:flutter/material.dart';
 import '../model/poli.dart';
 import 'poli_detail.dart';
 
-class PoliForm extends StatefulWidget {
-  const PoliForm({Key? key}) : super(key: key);
+class PoliUpdateForm extends StatefulWidget {
+  final Poli poli;
+
+  const PoliUpdateForm({Key? key, required this.poli}) : super(key: key);
 
   @override
-  _PoliFormState createState() => _PoliFormState();
+  _PoliUpdateFormState createState() => _PoliUpdateFormState();
 }
 
-class _PoliFormState extends State<PoliForm> {
+class _PoliUpdateFormState extends State<PoliUpdateForm> {
   final _formKey = GlobalKey<FormState>();
   final _namaPoliCtrl = TextEditingController();
 
   @override
+  void initState() {
+    super.initState();
+    setState(() {
+      _namaPoliCtrl.text = widget.poli.namaPoli;
+    });
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text("Tambah Poli")),
+      appBar: AppBar(title: const Text("Ubah Poli")),
       body: SingleChildScrollView(
         child: Form(
           key: _formKey,
@@ -26,7 +36,7 @@ class _PoliFormState extends State<PoliForm> {
             children: [
               _fieldNamaPoli(),
               const SizedBox(height: 20),
-              _tombolSimpan(),
+              _tombolSimpan()
             ],
           ),
         ),
@@ -34,7 +44,6 @@ class _PoliFormState extends State<PoliForm> {
     );
   }
 
-  // Fungsi untuk TextField Nama Poli
   _fieldNamaPoli() {
     return TextField(
       decoration: const InputDecoration(labelText: "Nama Poli"),
@@ -42,17 +51,17 @@ class _PoliFormState extends State<PoliForm> {
     );
   }
 
-  // Fungsi untuk Tombol Simpan
   _tombolSimpan() {
     return ElevatedButton(
       onPressed: () {
         Poli poli = Poli(namaPoli: _namaPoliCtrl.text);
+        Navigator.pop(context);
         Navigator.pushReplacement(
           context,
           MaterialPageRoute(builder: (context) => PoliDetail(poli: poli)),
         );
       },
-      child: const Text("Simpan"),
+      child: const Text("Simpan Perubahan"),
     );
   }
 

@@ -1,4 +1,5 @@
-// model/poli.dart
+// File: model/poli.dart
+
 class Poli {
   String? id;
   String namaPoli;
